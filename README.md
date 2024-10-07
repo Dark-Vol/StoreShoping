@@ -1,15 +1,17 @@
 # StoreShoping
 
-Структура проекта
+## Структура проекта
+
+```plaintext
 STORESHOPING/
 ├── client/                          # Клиентская часть (Frontend)
 │   ├── node_modules/                # Модули NPM для frontend
 │   ├── public/                      # Статические файлы (иконки, HTML)
 │   └── src/                         # Исходный код frontend
 │       ├── assets/                  # Ресурсы (шрифты, изображения)
-|       |   ├── fonts                # Для фоновых стилей
-│       │   ├── icons                # Для иконок форматом svg
-│       │   └── img                  # Для картинок форматом .png, .jpg
+│       │   ├── fonts/               # Для фоновых стилей
+│       │   ├── icons/               # Для иконок форматом svg
+│       │   └── img/                 # Для картинок форматом .png, .jpg
 │       ├── components/              # Компоненты React
 │       ├── hooks/                   # Пользовательские хуки
 │       ├── pages/                   # Страницы (React Router)
@@ -17,7 +19,6 @@ STORESHOPING/
 │       │   ├── base/                # Базовые стили (reset, global.scss)
 │       │   ├── components/          # Стили для компонентов
 │       │   ├── layouts/             # Стили для макетов страниц
-|       |   ├── global.scss/             
 │       │   └── variables.scss       # Переменные SCSS
 │       ├── services/                # Логика работы с API
 │       ├── utils/                   # Утилиты (вспомогательные функции)
