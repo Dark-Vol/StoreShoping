@@ -17,7 +17,7 @@ STORESHOPING/
 │       │   ├── base/                # Базовые стили (reset, global.scss)
 │       │   ├── components/          # Стили для компонентов
 │       │   ├── layouts/             # Стили для макетов страниц
-        |   ├── global.scss/             
+|       |   ├── global.scss/             
 │       │   └── variables.scss       # Переменные SCSS
 │       ├── services/                # Логика работы с API
 │       ├── utils/                   # Утилиты (вспомогательные функции)
@@ -30,7 +30,7 @@ STORESHOPING/
 │   ├── package-lock.json            # Точный список зависимостей (npm)
 │   ├── package.json                 # Скрипты, зависимости и метаданные проекта
 │   ├── README.md                    # Документация клиентской части
-│   ├── tsconfig.json                # Конфигурация TypeScript для frontend
+│   └── tsconfig.json                # Конфигурация TypeScript для frontend
 │
 ├── server/                          # Серверная часть (Backend)
 │   ├── config/                      # Конфигурационные файлы (например, база данных)
