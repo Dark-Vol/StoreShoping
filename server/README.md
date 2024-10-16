@@ -1,30 +1,32 @@
 ---
-# E-commerce API
+# Musical Instruments Store API
 
-This project is a server-side API for an e-commerce platform, built using Node.js and Express. The API manages various entities such as users, items, carts, orders, transactions, and more. The API follows RESTful conventions for resource-based routing.
+This is a backend server for managing a musical instruments store, providing functionality to manage users, orders, carts, items, transactions, and more. 
+It is built using **Node.js**, **Express**, and **Sequelize** as the ORM for interacting with a **MySQL** database.
 
 ## Table of Contents
+
 - [Technologies Used](#technologies-used)
-- [Getting Started](#getting-started)
-- [File Structure](#file-structure)
-- [API Documentation](#api-documentation)
+- [Project Structure](#project-structure)
+- [Installation and Setup](#installation-and-setup)
+- [Database Configuration](#database-configuration)
+- [API Endpoints](#api-endpoints)
   - [Users](#users)
   - [Items](#items)
   - [Carts](#carts)
   - [Orders](#orders)
-  - [Transactions](#transactions)
-  - [Order Statuses](#order-statuses)
-- [How to Contribute](#how-to-contribute)
-- [License](#license)
+- [Development Tools](#development-tools)
 
 ## Technologies Used
 
-- **Node.js**: JavaScript runtime used to run the server.
-- **Express.js**: Web framework for routing and handling HTTP requests.
-- **Sequelize**: ORM for database interaction.
-- **PostgreSQL/MySQL/SQLite**: Supported relational databases.
-- **dotenv**: For managing environment variables.
-- **body-parser**: Middleware for parsing incoming JSON request bodies.
+- **Node.js**: JavaScript runtime environment.
+- **Express**: Web framework for Node.js.
+- **Sequelize**: ORM for MySQL database management.
+- **MySQL**: Relational database system.
+- **Postman**: API testing and development tool.
+- **OpenServer**: Local web server for Windows.
+- **MySQL2**: MySQL database connector for Node.js.
+- **Nodemon**: Development utility for automatically restarting the server
 
 ## Getting Started
 
@@ -162,6 +164,23 @@ server/
 - **PUT** `/api/order-statuses/:id` – Update a specific order status by ID.
 - **DELETE** `/api/order-statuses/:id` – Delete a specific order status by ID.
 
+## Development Tools
+
+- **Nodemon**: Automatically restarts the server when code changes are detected.
+- **Postman**: Used to test API endpoints.
+- **OpenServer**: For local server setup.
+- **MySQL Workbench**: Database management tool.
+
+## Dependencies
+
+The following dependencies are used in this project:
+
+- **express**: Web framework for Node.js.
+- **sequelize**: ORM for SQL databases.
+- **mysql2**: MySQL connector for Node.js.
+- **cors**: Middleware for handling CORS (Cross-Origin Resource Sharing).
+- **nodemon**: Development tool for automatically restarting the server.
+
 ---
 
 ## How to Contribute
@@ -174,8 +193,12 @@ If you want to contribute to this project, follow these steps:
 4. Push the branch (`git push origin feature-branch-name`).
 5. Create a pull request.
 
+### Scripts
+- `npm start`: Start the server.
+- `npm run dev`: Start the server with Nodemon for development.
+
 ## License
 
-This project is licensed under the MIT License – see the [LICENSE](LICENSE) file for details.
+This `README.md` file provides a structured overview of the project, making it easier for others to understand how to set it up and use the API endpoints.
 
 ---
