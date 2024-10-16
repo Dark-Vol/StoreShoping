@@ -1,7 +1,7 @@
 ---
-
 # E-commerce API
-This project is a server-side API for an e-commerce platform, built using Node.js and Express. The API manages different entities like users, items, carts, orders, transactions, and more. The API follows RESTful conventions, where each resource is represented by a specific route and controlled via corresponding HTTP methods (GET, POST, PUT, DELETE).
+
+This project is a server-side API for an e-commerce platform, built using Node.js and Express. The API manages various entities such as users, items, carts, orders, transactions, and more. The API follows RESTful conventions for resource-based routing.
 
 ## Table of Contents
 - [Technologies Used](#technologies-used)
@@ -18,22 +18,26 @@ This project is a server-side API for an e-commerce platform, built using Node.j
 - [License](#license)
 
 ## Technologies Used
+
 - **Node.js**: JavaScript runtime used to run the server.
-- **Express.js**: Web framework used for routing and handling HTTP requests.
-- **Sequelize**: ORM used to interact with the database.
-- **PostgreSQL/MySQL/SQLite**: Relational databases supported (choose one for deployment).
-- **dotenv**: Used to manage environment variables.
-- **body-parser**: Middleware to parse incoming JSON data from requests.
+- **Express.js**: Web framework for routing and handling HTTP requests.
+- **Sequelize**: ORM for database interaction.
+- **PostgreSQL/MySQL/SQLite**: Supported relational databases.
+- **dotenv**: For managing environment variables.
+- **body-parser**: Middleware for parsing incoming JSON request bodies.
 
 ## Getting Started
-To get started with this project locally, follow the steps below:
+
+To run this project locally, follow the instructions below:
 
 ### Prerequisites
+
 1. Install [Node.js](https://nodejs.org/en/) (version >=14).
-2. Install a relational database (PostgreSQL, MySQL, or SQLite).
+2. Set up a relational database like PostgreSQL, MySQL, or SQLite.
 3. Install [Git](https://git-scm.com/) to clone the repository.
 
 ### Installation
+
 1. Clone the repository:
    ```bash
    git clone https://github.com/Nikita-Vavilov/ecommerce-api.git
@@ -45,7 +49,7 @@ To get started with this project locally, follow the steps below:
    npm install
    ```
 
-3. Set up environment variables by creating a `.env` file at the root of the project:
+3. Set up environment variables by creating a `.env` file at the project root:
    ```bash
    DB_HOST=your-database-host
    DB_USER=your-database-username
@@ -53,7 +57,7 @@ To get started with this project locally, follow the steps below:
    DB_NAME=your-database-name
    ```
 
-4. Run the database migrations to create the necessary tables:
+4. Run database migrations:
    ```bash
    npx sequelize-cli db:migrate
    ```
@@ -63,96 +67,112 @@ To get started with this project locally, follow the steps below:
    npm start
    ```
 
-6. The server will be running at `http://localhost:3000`.
+6. The server will be running on `http://localhost:3000`.
 
 ## File Structure
-Here's a brief overview of the project structure:
+
+The project file structure is as follows:
 
 ```
-├── controllers          # Contains controller logic for handling requests
+server/
+├── config/
+│   └── db.js                  # Database configuration
+├── controllers/               # Controller logic for handling requests
+│   ├── cartItemsControllers.js
 │   ├── cartsControllers.js
+│   ├── categoriesControllers.js
+│   ├── countriesControllers.js
+│   ├── instrumentsControllers.js
 │   ├── itemsControllers.js
+│   ├── manufacturesControllers.js
+│   ├── orderItemsControllers.js
+│   ├── orderStatusesControllers.js
 │   ├── ordersControllers.js
-│   └── ...
-├── models               # Sequelize models that define the database structure
-│   ├── Cart.js
-│   ├── Item.js
-│   ├── Order.js
-│   └── ...
-├── routes               # Express routes for each resource
+│   ├── transactionsControllers.js
+│   └── usersControllers.js
+├── models/
+│   └── models.js              # Sequelize models
+├── node_modules/              # Installed dependencies
+├── routes/                    # Express routes for each resource
+│   ├── cartItemsRouter.js
 │   ├── cartsRouter.js
+│   ├── categoriesRouter.js
+│   ├── countriesRouter.js
+│   ├── instrumentsRouter.js
 │   ├── itemsRouter.js
+│   ├── manufacturesRouter.js
+│   ├── orderItemsRouter.js
+│   ├── orderStatusesRouter.js
 │   ├── ordersRouter.js
-│   └── ...
-├── migrations           # Database migrations
-├── src
-│   ├── utils            # Utility functions and helpers
-│   └── config           # Configuration for the database and other services
-└── server.js            # Entry point to the API
+│   ├── transactionsRouter.js
+│   └── usersRouter.js
+├── package.json               # Project metadata and dependencies
+├── package-lock.json          # Dependency tree lockfile
+├── README.md                  # Project documentation
+└── server.js                  # Entry point to the API
 ```
 
 ## API Documentation
 
 ### Users
 
-- **GET** `/api/users` – Retrieves all users.
-- **GET** `/api/users/:id` – Retrieves a specific user by ID.
-- **POST** `/api/users` – Creates a new user.
-- **PUT** `/api/users/:id` – Updates a specific user by ID.
-- **PUT** `/api/users` – Updates a user based on query parameters.
-- **DELETE** `/api/users/:id` – Deletes a specific user by ID.
+- **GET** `/api/users` – Get all users.
+- **GET** `/api/users/:id` – Get a specific user by ID.
+- **POST** `/api/users` – Create a new user.
+- **PUT** `/api/users/:id` – Update a specific user by ID.
+- **DELETE** `/api/users/:id` – Delete a specific user by ID.
 
 ### Items
 
-- **GET** `/api/items` – Retrieves all items.
-- **GET** `/api/items/:id` – Retrieves a specific item by ID.
-- **POST** `/api/items` – Creates a new item.
-- **PUT** `/api/items/:id` – Updates a specific item by ID.
-- **DELETE** `/api/items/:id` – Deletes a specific item by ID.
+- **GET** `/api/items` – Get all items.
+- **GET** `/api/items/:id` – Get a specific item by ID.
+- **POST** `/api/items` – Create a new item.
+- **PUT** `/api/items/:id` – Update a specific item by ID.
+- **DELETE** `/api/items/:id` – Delete a specific item by ID.
 
 ### Carts
 
-- **GET** `/api/carts` – Retrieves all carts.
-- **GET** `/api/carts/:id` – Retrieves a specific cart by ID.
-- **POST** `/api/carts` – Creates a new cart.
-- **PUT** `/api/carts/:id` – Updates a specific cart by ID.
-- **DELETE** `/api/carts/:id` – Deletes a specific cart by ID.
+- **GET** `/api/carts` – Get all carts.
+- **GET** `/api/carts/:id` – Get a specific cart by ID.
+- **POST** `/api/carts` – Create a new cart.
+- **PUT** `/api/carts/:id` – Update a specific cart by ID.
+- **DELETE** `/api/carts/:id` – Delete a specific cart by ID.
 
 ### Orders
 
-- **GET** `/api/orders` – Retrieves all orders.
-- **GET** `/api/orders/:id` – Retrieves a specific order by ID.
-- **POST** `/api/orders` – Creates a new order.
-- **PUT** `/api/orders/:id` – Updates a specific order by ID.
-- **DELETE** `/api/orders/:id` – Deletes a specific order by ID.
+- **GET** `/api/orders` – Get all orders.
+- **GET** `/api/orders/:id` – Get a specific order by ID.
+- **POST** `/api/orders` – Create a new order.
+- **PUT** `/api/orders/:id` – Update a specific order by ID.
+- **DELETE** `/api/orders/:id` – Delete a specific order by ID.
 
 ### Transactions
 
-- **GET** `/api/transactions` – Retrieves all transactions.
-- **GET** `/api/transactions/:id` – Retrieves a specific transaction by ID.
-- **POST** `/api/transactions` – Creates a new transaction.
-- **PUT** `/api/transactions/:id` – Updates a specific transaction by ID.
-- **DELETE** `/api/transactions/:id` – Deletes a specific transaction by ID.
+- **GET** `/api/transactions` – Get all transactions.
+- **GET** `/api/transactions/:id` – Get a specific transaction by ID.
+- **POST** `/api/transactions` – Create a new transaction.
+- **PUT** `/api/transactions/:id` – Update a specific transaction by ID.
+- **DELETE** `/api/transactions/:id` – Delete a specific transaction by ID.
 
 ### Order Statuses
 
-- **GET** `/api/order-statuses` – Retrieves all order statuses.
-- **GET** `/api/order-statuses/:id` – Retrieves a specific order status by ID.
-- **POST** `/api/order-statuses` – Creates a new order status.
-- **PUT** `/api/order-statuses/:id` – Updates a specific order status by ID.
-- **DELETE** `/api/order-statuses/:id` – Deletes a specific order status by ID.
+- **GET** `/api/order-statuses` – Get all order statuses.
+- **GET** `/api/order-statuses/:id` – Get a specific order status by ID.
+- **POST** `/api/order-statuses` – Create a new order status.
+- **PUT** `/api/order-statuses/:id` – Update a specific order status by ID.
+- **DELETE** `/api/order-statuses/:id` – Delete a specific order status by ID.
 
 ---
 
 ## How to Contribute
 
-If you wish to contribute to this project, follow these steps:
+If you want to contribute to this project, follow these steps:
 
 1. Fork the repository.
 2. Create a new feature branch (`git checkout -b feature-branch-name`).
-3. Commit your changes (`git commit -am 'Add new feature'`).
-4. Push to the branch (`git push origin feature-branch-name`).
-5. Create a new Pull Request.
+3. Commit your changes (`git commit -m 'Add new feature'`).
+4. Push the branch (`git push origin feature-branch-name`).
+5. Create a pull request.
 
 ## License
 
