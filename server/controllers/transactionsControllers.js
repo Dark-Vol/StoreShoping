@@ -1,66 +1,79 @@
 const { Transaction } = require('../models/models');
 
 class TransactionsControllers {
-    static async getAll(req, resp) {
-        const transactions = await Transaction.findAll();
-        return resp.status(200).json(transactions);
-    }
-
-    static async getOne(req, resp) {
-        const transaction = await Transaction.findByPk(req.params.id);
-        if (transaction) {
-            return resp.status(200).json(transaction);
-        } else {
-            return resp.status(404).json({ message: "Transaction not found" });
+    static async getAll(req, res) {
+        try {
+            const transactions = await Transaction.findAll();
+            return res.status(200).json(transactions);
+        } catch (error) {
+            return res.status(500).json({ message: "Error fetching transactions", error });
         }
     }
 
-    static async create(req, resp) {
-        const transaction = await Transaction.create({
-            order_id: req.body.order_id,
-            payment_method: req.body.payment_method,
-            total_amount: req.body.total_amount
-        });
-        return resp.status(201).json(transaction);
-    }
-
-    static async updateForKey(req, resp) {
-        const { order_id, payment_method, total_amount } = req.body;
-        const transaction = await Transaction.findByPk(req.params.id);
-        if (transaction) {
-            transaction.order_id = order_id;
-            transaction.payment_method = payment_method;
-            transaction.total_amount = total_amount;
-            await transaction.save();
-            return resp.status(200).json(transaction);
-        } else {
-            return resp.status(404).json({ message: "Transaction not found" });
+    static async getOne(req, res) {
+        try {
+            const transaction = await Transaction.findByPk(req.params.id);
+            if (transaction) {
+                return res.status(200).json(transaction);
+            } else {
+                return res.status(404).json({ message: "Transaction not found" });
+            }
+        } catch (error) {
+            return res.status(500).json({ message: "Error fetching transaction", error });
         }
     }
 
-    static async updateForQuery(req, resp) {
-        const { order_id, payment_method, total_amount } = req.body;
-        const transaction = await Transaction.findOne({
-            where: { order_id: req.query.order_id }
-        });
-        if (transaction) {
-            transaction.order_id = order_id;
-            transaction.payment_method = payment_method;
-            transaction.total_amount = total_amount;
-            await transaction.save();
-            return resp.status(200).json(transaction);
-        } else {
-            return resp.status(404).json({ message: "Transaction not found" });
+    static async create(req, res) {
+        try {
+            const { user_id, order_item_id, code, payee, payer, status, content } = req.body;
+            const transaction = await Transaction.create({ 
+                user_id, 
+                order_item_id, 
+                code, 
+                payee, 
+                payer, 
+                status, 
+                content 
+            });
+            return res.status(201).json(transaction);
+        } catch (error) {
+            return res.status(500).json({ message: "Error creating transaction", error });
         }
     }
 
-    static async delete(req, resp) {
-        const transaction = await Transaction.findByPk(req.params.id);
-        if (transaction) {
-            await transaction.destroy();
-            return resp.status(200).json({ message: "Transaction deleted" });
-        } else {
-            return resp.status(404).json({ message: "Transaction not found" });
+    static async update(req, res) {
+        try {
+            const { user_id, order_item_id, code, payee, payer, status, content } = req.body;
+            const transaction = await Transaction.findByPk(req.params.id);
+            if (transaction) {
+                transaction.user_id = user_id;
+                transaction.order_item_id = order_item_id;
+                transaction.code = code;
+                transaction.payee = payee;
+                transaction.payer = payer;
+                transaction.status = status;
+                transaction.content = content;
+                await transaction.save();
+                return res.status(200).json(transaction);
+            } else {
+                return res.status(404).json({ message: "Transaction not found" });
+            }
+        } catch (error) {
+            return res.status(500).json({ message: "Error updating transaction", error });
+        }
+    }
+
+    static async delete(req, res) {
+        try {
+            const transaction = await Transaction.findByPk(req.params.id);
+            if (transaction) {
+                await transaction.destroy();
+                return res.status(200).json({ message: "Transaction deleted" });
+            } else {
+                return res.status(404).json({ message: "Transaction not found" });
+            }
+        } catch (error) {
+            return res.status(500).json({ message: "Error deleting transaction", error });
         }
     }
 }

@@ -1,69 +1,73 @@
-const { OrderItem } = require('../models/models');
+const {OrderItem} = require('../models/models');
 
 class OrderItemsControllers {
-    static async getAll(req, resp) {
-        const orderItems = await OrderItem.findAll();
-        return resp.status(200).json(orderItems);
-    }
-
-    static async getOne(req, resp) {
-        const orderItem = await OrderItem.findByPk(req.params.id);
-        if (orderItem) {
-            return resp.status(200).json(orderItem);
-        } else {
-            return resp.status(404).json({ message: "Order item not found" });
+    static async getAll(req, res) {
+        try {
+            const orderItems = await OrderItem.findAll();
+            return res.status(200).json(orderItems);
+        } catch (error) {
+            return res.status(500).json({ message: "Error fetching order items", error });
         }
     }
 
-    static async create(req, resp) {
-        const orderItem = await OrderItem.create({
-            order_id: req.body.order_id,
-            item_id: req.body.item_id,
-            quantity: req.body.quantity,
-            price: req.body.price
-        });
-        return resp.status(201).json(orderItem);
-    }
-
-    static async updateForKey(req, resp) {
-        const { order_id, item_id, quantity, price } = req.body;
-        const orderItem = await OrderItem.findByPk(req.params.id);
-        if (orderItem) {
-            orderItem.order_id = order_id;
-            orderItem.item_id = item_id;
-            orderItem.quantity = quantity;
-            orderItem.price = price;
-            await orderItem.save();
-            return resp.status(200).json(orderItem);
-        } else {
-            return resp.status(404).json({ message: "Order item not found" });
+    static async getOne(req, res) {
+        try {
+            const orderItem = await OrderItem.findByPk(req.params.id);
+            if (orderItem) {
+                return res.status(200).json(orderItem);
+            } else {
+                return res.status(404).json({ message: "Order item not found" });
+            }
+        } catch (error) {
+            return res.status(500).json({ message: "Error fetching order item", error });
         }
     }
 
-    static async updateForQuery(req, resp) {
-        const { order_id, item_id, quantity, price } = req.body;
-        const orderItem = await OrderItem.findOne({
-            where: { order_id: req.query.order_id }
-        });
-        if (orderItem) {
-            orderItem.order_id = order_id;
-            orderItem.item_id = item_id;
-            orderItem.quantity = quantity;
-            orderItem.price = price;
-            await orderItem.save();
-            return resp.status(200).json(orderItem);
-        } else {
-            return resp.status(404).json({ message: "Order item not found" });
+    static async create(req, res) {
+        try {
+            const { customer_order_id, item_id, price, discount } = req.body;
+            const orderItem = await OrderItem.create({
+                customer_order_id,
+                item_id,
+                price,
+                discount
+            });
+            return res.status(201).json(orderItem);
+        } catch (error) {
+            return res.status(500).json({ message: "Error creating order item", error });
         }
     }
 
-    static async delete(req, resp) {
-        const orderItem = await OrderItem.findByPk(req.params.id);
-        if (orderItem) {
-            await orderItem.destroy();
-            return resp.status(200).json({ message: "Order item deleted" });
-        } else {
-            return resp.status(404).json({ message: "Order item not found" });
+    static async update(req, res) {
+        try {
+            const { customer_order_id, item_id, price, discount } = req.body;
+            const orderItem = await OrderItem.findByPk(req.params.id);
+            if (orderItem) {
+                orderItem.customer_order_id = customer_order_id;
+                orderItem.item_id = item_id;
+                orderItem.price = price;
+                orderItem.discount = discount;
+                await orderItem.save();
+                return res.status(200).json(orderItem);
+            } else {
+                return res.status(404).json({ message: "Order item not found" });
+            }
+        } catch (error) {
+            return res.status(500).json({ message: "Error updating order item", error });
+        }
+    }
+
+    static async delete(req, res) {
+        try {
+            const orderItem = await OrderItem.findByPk(req.params.id);
+            if (orderItem) {
+                await orderItem.destroy();
+                return res.status(200).json({ message: "Order item deleted" });
+            } else {
+                return res.status(404).json({ message: "Order item not found" });
+            }
+        } catch (error) {
+            return res.status(500).json({ message: "Error deleting order item", error });
         }
     }
 }

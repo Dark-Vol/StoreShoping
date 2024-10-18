@@ -1,66 +1,79 @@
-const { Item } = require('../models/models');
+const {Item} = require('../models/models');
 
 class ItemsControllers {
-    static async getAll(req, resp) {
-        const items = await Item.findAll();
-        return resp.status(200).json(items);
-    }
-
-    static async getOne(req, resp) {
-        const item = await Item.findByPk(req.params.id);
-        if (item) {
-            return resp.status(200).json(item);
-        } else {
-            return resp.status(404).json({ message: "Item not found" });
+    static async getAll(req, res) {
+        try {
+            const items = await Item.findAll();
+            return res.status(200).json(items);
+        } catch (error) {
+            return res.status(500).json({ message: "Error fetching items", error });
         }
     }
 
-    static async create(req, resp) {
-        const item = await Item.create({
-            instrument_id: req.body.instrument_id,
-            quantity: req.body.quantity,
-            price: req.body.price
-        });
-        return resp.status(201).json(item);
-    }
-
-    static async updateForKey(req, resp) {
-        const { instrument_id, quantity, price } = req.body;
-        const item = await Item.findByPk(req.params.id);
-        if (item) {
-            item.instrument_id = instrument_id;
-            item.quantity = quantity;
-            item.price = price;
-            await item.save();
-            return resp.status(200).json(item);
-        } else {
-            return resp.status(404).json({ message: "Item not found" });
+    static async getOne(req, res) {
+        try {
+            const item = await Item.findByPk(req.params.id);
+            if (item) {
+                return res.status(200).json(item);
+            } else {
+                return res.status(404).json({ message: "Item not found" });
+            }
+        } catch (error) {
+            return res.status(500).json({ message: "Error fetching item", error });
         }
     }
 
-    static async updateForQuery(req, resp) {
-        const { instrument_id, quantity, price } = req.body;
-        const item = await Item.findOne({
-            where: { instrument_id: req.query.instrument_id }
-        });
-        if (item) {
-            item.instrument_id = instrument_id;
-            item.quantity = quantity;
-            item.price = price;
-            await item.save();
-            return resp.status(200).json(item);
-        } else {
-            return resp.status(404).json({ message: "Item not found" });
+    static async create(req, res) {
+        try {
+            const { instrument_id, serial_number, description, year_of_production, price, country_id, characteristics } = req.body;
+            const item = await Item.create({
+                instrument_id,
+                serial_number,
+                description,
+                year_of_production,
+                price,
+                country_id,
+                characteristics
+            });
+            return res.status(201).json(item);
+        } catch (error) {
+            return res.status(500).json({ message: "Error creating item", error });
         }
     }
 
-    static async delete(req, resp) {
-        const item = await Item.findByPk(req.params.id);
-        if (item) {
-            await item.destroy();
-            return resp.status(200).json({ message: "Item deleted" });
-        } else {
-            return resp.status(404).json({ message: "Item not found" });
+    static async update(req, res) {
+        try {
+            const { instrument_id, serial_number, description, year_of_production, price, country_id, characteristics } = req.body;
+            const item = await Item.findByPk(req.params.id);
+            if (item) {
+                item.instrument_id = instrument_id;
+                item.serial_number = serial_number;
+                item.description = description;
+                item.year_of_production = year_of_production;
+                item.price = price;
+                item.country_id = country_id;
+                item.characteristics = characteristics;
+                await item.save();
+                return res.status(200).json(item);
+            } else {
+                return res.status(404).json({ message: "Item not found" });
+            }
+        } catch (error) {
+            return res.status(500).json({ message: "Error updating item", error });
+        }
+    }
+
+    static async delete(req, res) {
+        try {
+            const item = await Item.findByPk(req.params.id);
+            if (item) {
+                await item.destroy();
+                return res.status(200).json({ message: "Item deleted" });
+            } else {
+                return res.status(404).json({ message: "Item not found" });
+            }
+        } catch (error) {
+            return res.status(500).json({ message: "Error deleting item", error });
         }
     }
 }
