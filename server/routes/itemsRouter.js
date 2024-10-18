@@ -6,8 +6,7 @@ const router = new Router();
 router.get('/', itemsControllers.getAll);
 router.get('/:id', itemsControllers.getOne);
 router.post('/', itemsControllers.create);
-router.put('/:id', itemsControllers.updateForKey);
-router.put('/', itemsControllers.updateForQuery);
+router.put('/:id', itemsControllers.update); 
 router.delete('/:id', itemsControllers.delete);
 
 module.exports = router;
