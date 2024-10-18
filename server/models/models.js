@@ -104,6 +104,20 @@ const UserOrder = sequelize.define('User_order', {
     active: { type: DataTypes.TINYINT }
 });
 
+
+const Orders = sequelize.define('Order', {
+    order_id: { type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true },
+    user_id: { type: DataTypes.BIGINT, allowNull: false },
+    status: { type: DataTypes.STRING(50), allowNull: false }, // Статус заказа (напр., 'pending', 'completed')
+    total_amount: { type: DataTypes.FLOAT, allowNull: false }, // Общая сумма заказа
+    discount: { type: DataTypes.FLOAT }, // Скидка на заказ
+    createdAt: { type: DataTypes.DATE, allowNull: false, defaultValue: DataTypes.NOW },
+    updatedAt: { type: DataTypes.DATE, allowNull: false, defaultValue: DataTypes.NOW },
+    shipping_address: { type: DataTypes.STRING(255), allowNull: true }, // Адрес доставки
+    payment_method: { type: DataTypes.STRING(50), allowNull: true }, // Способ оплаты
+    content: { type: DataTypes.TEXT } // Дополнительная информация о заказе
+});
+
 // Модель Order_status
 const OrderStatus = sequelize.define('Order_status', {
     order_status_id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
@@ -111,14 +125,14 @@ const OrderStatus = sequelize.define('Order_status', {
 });
 
 // Модель Order_item
-const OrderItem = sequelize.define('Order_item', {
+const OrderItem = sequelize.define('OrderItem', {
     order_item_id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    customer_order_id: { type: DataTypes.INTEGER, allowNull: false },
+    customer_order_id: { type: DataTypes.INTEGER, allowNull: false },  // Consistent naming
     item_id: { type: DataTypes.INTEGER, allowNull: false },
     price: { type: DataTypes.DECIMAL(10, 2) },
     discount: { type: DataTypes.FLOAT },
-    createdAt: { type: DataTypes.DATE },
-    updatedAt: { type: DataTypes.DATE }
+    createdAt: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
+    updatedAt: { type: DataTypes.DATE, defaultValue: DataTypes.NOW }
 });
 
 // Модель Transaction
@@ -130,8 +144,8 @@ const Transaction = sequelize.define('Transaction', {
     payee: { type: DataTypes.SMALLINT },
     payer: { type: DataTypes.SMALLINT },
     status: { type: DataTypes.SMALLINT },
-    createdAt: { type: DataTypes.DATE },
-    updatedAt: { type: DataTypes.DATE },
+    createdAt: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
+    updatedAt: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
     content: { type: DataTypes.TEXT }
 });
 
@@ -145,6 +159,7 @@ module.exports = {
     Cart,
     CartItem,
     UserOrder,
+    Orders,
     OrderStatus,
     OrderItem,
     Transaction
