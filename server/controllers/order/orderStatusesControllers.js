@@ -1,4 +1,4 @@
-const {OrderStatus} = require('../models/models');
+const {OrderStatus} = require('../../models/models');
 
 class OrderStatusesControllers {
     static async getAll(req, res) {
