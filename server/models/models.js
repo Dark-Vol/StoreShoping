@@ -152,6 +152,21 @@ const Transaction = sequelize.define('Transaction', {
     content: { type: DataTypes.TEXT }
 });
 
+const Photo = sequelize.define("Photo", {
+    path: {type:DataTypes.STRING, allowNull: false, unique:true}
+})
+
+const Account = sequelize.define("Account", {
+    email: {type: DataTypes.STRING(20), allowNull: false, unique:true},
+    password: {type: DataTypes.STRING(20), allowNull: false},
+}) 
+
+const Profile = sequelize.define('Profile', {
+    name: {type: DataTypes.STRING(20), allowNull: false},
+    age: {type: DataTypes.INTEGER, allowNull: false},
+    city: {type: DataTypes.STRING(20), allowNull: false},
+})
+
 User.belongsTo(Country, { foreignKey: 'country_id' });
 Country.hasMany(User, { foreignKey: 'country_id' });
 
@@ -211,5 +226,8 @@ module.exports = {
     OrderStatus,
     OrderItem,
     Transaction,
-    UserOrders 
+    UserOrders,
+    Photo,
+    Account,
+    Profile
 };
