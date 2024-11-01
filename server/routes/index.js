@@ -11,6 +11,7 @@ const ordersRouter = require('./ordersRouter');
 const orderStatusesRouter = require('./orderStatusesRouter');
 const orderItemsRouter = require('./orderItemsRouter');
 const transactionsRouter = require('./transactionsRouter');
+const accountRouter = require('./accountRouter');
 
 const router = new Router();
 
@@ -49,5 +50,7 @@ router.use('/order-items', orderItemsRouter);
 
 // Маршруты для транзакций
 router.use('/transactions', transactionsRouter);
+
+router.use('/account', accountRouter)
 
 module.exports = router;
