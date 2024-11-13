@@ -7,9 +7,9 @@ const instrumentsRouter = require('./instrumentsRouter');
 const itemsRouter = require('./itemsRouter');
 const cartsRouter = require('./cartsRouter');
 const cartItemsRouter = require('./cartItemsRouter');
-const ordersRouter = require('./ordersRouter');
-const orderStatusesRouter = require('./orderStatusesRouter');
-const orderItemsRouter = require('./orderItemsRouter');
+const ordersRouter = require("./order/ordersRouter")
+const orderStatusesRouter = require('./order/orderStatusesRouter');
+const orderItemsRouter = require('./order/orderItemsRouter');
 const transactionsRouter = require('./transactionsRouter');
 const accountRouter = require('./accountRouter');
 

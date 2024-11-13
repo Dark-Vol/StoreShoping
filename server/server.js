@@ -4,7 +4,8 @@ const express = require('express')
 const cors = require('cors')
 const router = require('./routes')
 const sequelize = require('./config/db')
-const fileUpload = require("express-fileupload")
+const fileUpload = require('express-fileupload')
+const path = require('path')
 
 const ip = '127.0.0.1'
 const port = 3000
