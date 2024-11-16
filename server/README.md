@@ -24,7 +24,7 @@ It is built using **Node.js**, **Express**, and **Sequelize** as the ORM for int
 - **Sequelize**: ORM for MySQL database management.
 - **MySQL**: Relational database system.
 - **Postman**: API testing and development tool.
-- **OpenServer**: Local web server for Windows.
+- **XAMPP**: Local web server for Windows.
 - **MySQL2**: MySQL database connector for Node.js.
 - **Nodemon**: Development utility for automatically restarting the server
 
