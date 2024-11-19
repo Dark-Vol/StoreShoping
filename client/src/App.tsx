@@ -1,24 +1,19 @@
-import React from 'react';
+import { Suspense } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import "./scss/base/GlobalStyles.scss"
+import Header from './components/header/Header';
 
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header></Header>
+      <Suspense >
+        <Routes>
+          <Route path="/"></Route>
+        </Routes>
+      </Suspense>
+    </>
   );
 }
 
